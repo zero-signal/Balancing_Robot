@@ -1,10 +1,6 @@
 #ifndef _BERTY_H_
 #define _BERTY_H_
 
-#undef int
-#include <stdio.h>
-#include <string.h>
-
 //#############################################################################
 // Serial variables
 #define SERIAL_WRITE_BYTES 768
@@ -24,7 +20,7 @@ char fmt[FORMAT_STR_LEN];
 // Angle variables
 
 const double max_angle    =  45.00;                   // our maximum 'tilt' angle
-const double target_angle =  1.00;                    // our target angle, i.e. upgright ;-)
+const double target_angle =  1.00;                    // our target angle, i.e. upgright(-ish) ;-)
 
 const int zG[3] = { -20, 15, -23 };                   // zeroG values for ADXL345 acc
 double acc_xG, acc_yG, acc_zG                  = 0;   // computed G values from acc
@@ -47,15 +43,15 @@ double pid_value, pid_left, pid_right;
 
 // actual PID values, should be configurable somehow...
 double p = 17.0;   //3.5
-double i = 4.0;   //4.0
-double d = 5.0;   //3.0
+double i = 4.0;    //4.0
+double d = 5.0;    //3.0
 
 //#############################################################################
 // Timer variables
 uint32_t kalman_timer;
 uint32_t nunchuck_timer;
 
-#define STD_LOOP_TIME 10000 // Fixed time loop of 10 milliseconds
+#define STD_LOOP_TIME 10000   // Fixed time loop of 10ms
 unsigned long last_loop_time = STD_LOOP_TIME;
 unsigned long loop_start_time;
 
@@ -66,13 +62,6 @@ unsigned long loop_start_time;
 #define ADXL345_POWER_CTL 0x2d
 #define ADXL345_DATA_FORMAT 0x31
 #define ADXL345_DATAX0 0x32
-
-#define ADXL345_NO_ERROR  0   // initial state
-#define ADXL345_READ_ERROR 1  // problem reading accel
-#define ADXL345_BAD_ARG  2    // bad method argument
-
-#define ADXL345_INT1_PIN 0x00
-#define ADXL345_INT2_PIN 0x01
 
 #define ADXL345_TWI_ADDR       ((byte)0x53)
 #define ADXL345_TELEGRAM_LEN   ((byte)6)
@@ -143,7 +132,7 @@ double gyro_zero;
 #define RIGHT_MOTOR_FORWARD   HIGH
 #define RIGHT_MOTOR_BACKWARD  LOW
 
-//motor characteristics are not always equal...
+// motor characteristics are not always equal... again  should be configurable
 double motor_gain_left  = 0.85;
 double motor_gain_right = 1.0;
 
